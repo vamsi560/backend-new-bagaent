@@ -73,7 +73,7 @@ app = Flask(__name__)
 init_db()
 
 # --- Configuration ---
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Initialize integration manager
 integration_manager = IntegrationManager()
