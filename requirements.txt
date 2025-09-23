@@ -9,17 +9,14 @@ sqlalchemy==2.0.23
 azure-communication-email==1.0.0
 qdrant-client==1.7.0
 
-# Lightweight analytics/runtime packages
 pandas==2.2.2
 numpy==1.26.4
 
-# Utils used by the app
 Pillow==10.0.0
 python-magic==0.4.27
 
-# Auth
 PyJWT==2.8.0
 bcrypt==4.0.1
 
-# WSGI server for production (can be ignored on Vercel serverless)
+msal==1.31.1
 gunicorn==21.2.0
