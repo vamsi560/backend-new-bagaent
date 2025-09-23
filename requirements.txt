@@ -12,3 +12,4 @@ gunicorn==21.2.0
 PyJWT==2.10.1
 bcrypt==4.2.1
 msal==1.31.1
+azure-devops==7.1.0
