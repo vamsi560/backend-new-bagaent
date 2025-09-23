@@ -7,7 +7,7 @@ azure-communication-email==1.0.0
 sqlalchemy==2.0.23
 qdrant-client==1.7.0
 sentence-transformers==2.2.2
-pip install torch==2.0.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
+torch==2.0.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
 python-dotenv==1.0.0
 psycopg2-binary==2.9.9
 gunicorn==21.2.0 
