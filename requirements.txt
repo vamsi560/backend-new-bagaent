@@ -20,4 +20,4 @@ bcrypt==4.0.1
 
 msal==1.31.1
 gunicorn==21.2.0
-azure-devops==7.1.0
+azure-devops==7.1.0b4
