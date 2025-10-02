@@ -25,7 +25,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 # Qdrant Vector Database Configuration
-QDRANT_ENABLED = os.getenv('QDRANT_ENABLED', 'true').lower() == 'true'
+QDRANT_ENABLED = "false"
 QDRANT_HOST = os.getenv('QDRANT_HOST', 'localhost')
 QDRANT_PORT = int(os.getenv('QDRANT_PORT', 6333))
 VECTOR_SIZE = 384
@@ -43,14 +43,14 @@ if QDRANT_ENABLED:
         qdrant_client = QdrantClient(host=QDRANT_HOST, port=QDRANT_PORT)
         
         # Try to initialize embedding model with error handling
-        try:
-            from sentence_transformers import SentenceTransformer
-            embedding_model = SentenceTransformer('all-MiniLM-L6-v2', device='cpu')
-            print("✅ Qdrant vector database connected successfully with embeddings")
-        except Exception as embedding_error:
-            print(f"⚠️ Embedding model initialization failed: {embedding_error}")
-            print("ℹ️ Qdrant will work without embeddings (text-only mode)")
-            embedding_model = None
+        # try:
+        #     from sentence_transformers import SentenceTransformer
+        #     embedding_model = SentenceTransformer('all-MiniLM-L6-v2', device='cpu')
+        #     print("✅ Qdrant vector database connected successfully with embeddings")
+        # except Exception as embedding_error:
+        #     print(f"⚠️ Embedding model initialization failed: {embedding_error}")
+        #     print("ℹ️ Qdrant will work without embeddings (text-only mode)")
+        #     embedding_model = None
             
     except Exception as e:
         print(f"⚠️ Qdrant initialization failed: {e}")

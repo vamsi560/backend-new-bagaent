@@ -2,6 +2,27 @@
 # Integration services for OneDrive and Azure DevOps
 
 import os
+import tempfile
+
+# Ensure a writable cache/home directory on serverless platforms (Vercel, AWS Lambda, etc.)
+# The azure-devops package attempts to create cache directories under the user's home
+# at import time which fails on read-only filesystems. Force XDG_CACHE_HOME and HOME
+# to a writable temporary directory when the default home is not writable.
+try:
+    home = os.environ.get('HOME', '')
+    # If HOME is not writable (common in some serverless environments), use a temp dir
+    if home and not os.access(home, os.W_OK):
+        tmp = tempfile.mkdtemp(prefix='baagent_cache_')
+        os.environ['XDG_CACHE_HOME'] = tmp
+        os.environ['HOME'] = tmp
+    # If HOME not set at all, set it to a temp dir as well
+    if not os.environ.get('HOME'):
+        tmp = tempfile.mkdtemp(prefix='baagent_cache_')
+        os.environ['XDG_CACHE_HOME'] = tmp
+        os.environ['HOME'] = tmp
+except Exception:
+    # If anything goes wrong, fall back to existing env vars and hope import succeeds
+    pass
 import requests
 import json
 import time
