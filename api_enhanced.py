@@ -2,6 +2,7 @@
 # Enhanced API endpoints for document versioning, storage, and approval management
 
 from flask import Blueprint, request, jsonify
+from analysis_api_utils import get_analysis_by_id
 from database_enhanced import (
     get_db, save_document_with_versioning, get_document_versions, 
     get_latest_document, save_analysis_with_approval, update_approval_status,
@@ -378,5 +379,26 @@ def test_enhanced_api():
     except Exception as e:
         return jsonify({
             "success": False,
+            "error": str(e)
+        }), 500
+
+
+# New endpoint: GET /api/enhanced/analyses/<analysis_id>
+@api_enhanced.route("/api/enhanced/analyses/<analysis_id>", methods=['GET'])
+def get_analysis_details_by_id(analysis_id):
+    """Retrieve full analysis details by ID"""
+    try:
+        analysis = get_analysis_by_id(analysis_id)
+        if analysis:
+            return jsonify({
+                "success": True,
+                "analysis": analysis
+            }), 200
+        else:
+            return jsonify({
+                "error": f"Analysis with ID {analysis_id} not found"
+            }), 404
+    except Exception as e:
+        return jsonify({
             "error": str(e)
         }), 500
